@@ -1,18 +1,23 @@
 package ru.vsu.cs.model;
 
-public class Prescription {
+import java.time.LocalDate;
+
+public class Prescription implements MedicalRecordEntry {
     private int id;
     private Patient patient;
     private Doctor doctor;
     private String description;
-    private String date;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
-    public Prescription(int id, Patient patient, Doctor doctor, String description, String date) {
+    public Prescription(int id, Patient patient, Doctor doctor,
+                        String description, LocalDate startDate, LocalDate endDate) {
         this.id = id;
         this.patient = patient;
         this.doctor = doctor;
         this.description = description;
-        this.date = date;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     public int getId() {
@@ -31,7 +36,17 @@ public class Prescription {
         return description;
     }
 
-    public String getDate() {
-        return date;
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    @Override
+    public String getSummary() {
+        return "Назначение: " + description +
+                ", период: с " + startDate + " по " + endDate;
     }
 }

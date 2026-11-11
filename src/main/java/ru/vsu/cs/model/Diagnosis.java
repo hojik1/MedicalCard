@@ -1,13 +1,16 @@
 package ru.vsu.cs.model;
 
-public class Diagnosis {
+import java.time.LocalDate;
+
+public class Diagnosis implements MedicalRecordEntry {
     private int id;
     private Patient patient;
     private Doctor doctor;
     private String description;
-    private String date;
+    private LocalDate date;
 
-    public Diagnosis(int id, Patient patient, Doctor doctor, String description, String date) {
+    public Diagnosis(int id, Patient patient, Doctor doctor,
+                     String description, LocalDate date) {
         this.id = id;
         this.patient = patient;
         this.doctor = doctor;
@@ -31,7 +34,12 @@ public class Diagnosis {
         return description;
     }
 
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
+    }
+
+    @Override
+    public String getSummary() {
+        return "Диагноз: " + description + ", дата: " + date;
     }
 }
