@@ -1,21 +1,34 @@
 package ru.vsu.cs.model;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Diagnosis implements MedicalRecordEntry {
-    private int id;
-    private Patient patient;
-    private Doctor doctor;
-    private String description;
-    private LocalDate date;
+
+    private final int id;
+    private final Patient patient;
+    private final Doctor doctor;
+    private final String description;
+    private final LocalDate date;
 
     public Diagnosis(int id, Patient patient, Doctor doctor,
                      String description, LocalDate date) {
+
+        if (id <= 0) {
+            throw new IllegalArgumentException("ID диагноза должен быть положительным");
+        }
+
+        this.patient = Objects.requireNonNull(patient, "Пациент не может быть null");
+        this.doctor = Objects.requireNonNull(doctor, "Врач не может быть null");
+        this.date = Objects.requireNonNull(date, "Дата диагноза не может быть null");
+        Objects.requireNonNull(description, "Описание не может быть null");
+
+        if (description.isBlank()) {
+            throw new IllegalArgumentException("Описание диагноза не может быть пустым");
+        }
+
         this.id = id;
-        this.patient = patient;
-        this.doctor = doctor;
         this.description = description;
-        this.date = date;
     }
 
     public int getId() {

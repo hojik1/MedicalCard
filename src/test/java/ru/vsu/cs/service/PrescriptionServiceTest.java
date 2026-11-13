@@ -105,17 +105,28 @@ class PrescriptionServiceTest {
         );
     }
 
+
     @Test
     void rejectsInvalidPrescriptionPeriod() {
-        Prescription prescription = new Prescription(
-                1, patient1, doctor, "Витамин D",
-                LocalDate.of(2026, 11, 14),
-                LocalDate.of(2026, 11, 1)
-        );
-
         assertThrows(
                 IllegalArgumentException.class,
-                () -> service.addPrescription(prescription)
+                () -> new Prescription(
+                        1, patient1, doctor, "Витамин D",
+                        LocalDate.of(2026, 11, 14),
+                        LocalDate.of(2026, 11, 1)
+                )
+        );
+    }
+
+    @Test
+    void rejectsPrescriptionWithNullPatient() {
+        assertThrows(
+                NullPointerException.class,
+                () -> new Prescription(
+                        1, null, doctor, "Витамин D",
+                        LocalDate.of(2026, 11, 1),
+                        LocalDate.of(2026, 11, 14)
+                )
         );
     }
 }

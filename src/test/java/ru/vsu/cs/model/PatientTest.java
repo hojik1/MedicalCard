@@ -1,4 +1,3 @@
-
 package ru.vsu.cs.model;
 
 import org.junit.jupiter.api.Test;
@@ -36,5 +35,21 @@ class PatientTest {
         Patient patient = new Patient("12345", "Иванов Иван");
 
         assertEquals(patient, patient);
+    }
+
+    @Test
+    void rejectsBlankPolicyNumber() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new Patient("   ", "Иванов Иван")
+        );
+    }
+
+    @Test
+    void rejectsBlankFullName() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new Patient("12345", "")
+        );
     }
 }

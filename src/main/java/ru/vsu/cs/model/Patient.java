@@ -1,15 +1,26 @@
-
 package ru.vsu.cs.model;
 
 import java.util.Objects;
 
 public class Patient {
+
     private final String policyNumber;
     private final String fullName;
 
     public Patient(String policyNumber, String fullName) {
-        this.policyNumber = Objects.requireNonNull(policyNumber);
-        this.fullName = Objects.requireNonNull(fullName);
+        Objects.requireNonNull(policyNumber, "Номер полиса не может быть null");
+        Objects.requireNonNull(fullName, "ФИО не может быть null");
+
+        if (policyNumber.isBlank()) {
+            throw new IllegalArgumentException("Номер полиса не может быть пустым");
+        }
+
+        if (fullName.isBlank()) {
+            throw new IllegalArgumentException("ФИО не может быть пустым");
+        }
+
+        this.policyNumber = policyNumber;
+        this.fullName = fullName;
     }
 
     public String getPolicyNumber() {

@@ -110,4 +110,14 @@ class AppointmentServiceTest {
                 () -> service.addAppointment(appointment)
         );
     }
+    @Test
+    void rejectsAppointmentWithInvalidId() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new Appointment(
+                        0, patient1, doctor1,
+                        LocalDateTime.of(2026, 11, 12, 10, 0)
+                )
+        );
+    }
 }

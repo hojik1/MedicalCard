@@ -14,15 +14,7 @@ public class PrescriptionService {
     private final List<Prescription> prescriptions = new ArrayList<>();
 
     public void addPrescription(Prescription prescription) {
-        Objects.requireNonNull(prescription);
-
-        if (prescription.getStartDate().isAfter(prescription.getEndDate())) {
-            throw new IllegalArgumentException(
-                    "Дата начала назначения не может быть позже даты окончания"
-            );
-        }
-
-        prescriptions.add(prescription);
+        prescriptions.add(Objects.requireNonNull(prescription));
     }
 
     public List<Prescription> getActivePrescriptions(
